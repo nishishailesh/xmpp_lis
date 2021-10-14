@@ -4,9 +4,10 @@ However, it should be helpful for other linux distros, too
 
 nchs.gmcsurat.edu.in will be example server domain name
 
+```
 apt install prosody
 apt install python3-slixmpp
-
+```
 setup letsencrypt
 
 look in /etc/prosody
