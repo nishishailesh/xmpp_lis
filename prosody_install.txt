@@ -1,0 +1,61 @@
+The project require a working xmpp server.
+Following instructions are tested in debian 11. 
+However, it should be helpful for other linux distros, too
+
+nchs.gmcsurat.edu.in will be example server domain name
+
+apt install prosody
+apt install python3-slixmpp
+
+setup letsencrypt
+
+look in /etc/prosody
+
+
+=====SSL service configuration=====
+
+cd /etc/letsencrypt/renewal-hooks/
+cd deploy/
+pico prosody.sh
+Its content is as follows
+
+/usr/bin/prosodyctl --root cert import /etc/letsencrypt/live
+
+
+or run following command in shell script
+
+/usr/bin/prosodyctl --root cert import /etc/letsencrypt/live
+
+This will copy certificates in certs folder
+
+
+look in /etc/prosody
+
+change prosody.cfg.lua or create config file in conf.d file.
+
+The added section / created file will look like below
+
+
+VirtualHost "nchs.gmcsurat.edu.in"
+	-- enabled = false -- Remove this line to enable this host
+         ssl = {
+                key = "/etc/prosody/certs/nchs.gmcsurat.edu.in.key";
+                certificate = "/etc/prosody/certs/nchs.gmcsurat.edu.in.crt";
+               }
+
+
+service prosody restart
+
+
+======Create some users======
+prosodyctl adduser one@nchs.gmcsurat.edu.in
+prosodyctl adduser two@nchs.gmcsurat.edu.in
+
+
+======use xmpp client=====
+In android phone: xabber
+In apple phone:
+In linux: pidgin
+
+======Setup python client program====
+See other files of this project
