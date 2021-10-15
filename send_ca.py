@@ -15,6 +15,8 @@ import slixmpp
 sys.path.append('/var/gmcs_config')
 import astm_var
 
+send_to_examination_id=1006
+
 class SendMsgBot(slixmpp.ClientXMPP):
 
     """
