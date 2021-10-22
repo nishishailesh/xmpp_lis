@@ -1,0 +1,10 @@
+[Unit]
+Description=XMPP LIS interface for instant messaging of reports and critical alerts
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/root/xmpp/send_ca.py
+
+[Install]
+WantedBy=multi-user.target

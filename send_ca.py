@@ -9,7 +9,7 @@ import logging, sys
 from getpass import getpass
 from argparse import ArgumentParser
 from common_class import my_sql
-import slixmpp
+import slixmpp, time
 
 #For mysql password
 sys.path.append('/var/gmcs_config')
@@ -64,26 +64,27 @@ class SendMsgBot(slixmpp.ClientXMPP):
 
 if __name__ == '__main__':
     # Setup logging.
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(levelname)-8s %(message)s')
+    logging.basicConfig(level=logging.DEBUG,filename="/var/log/im.log",format='"%(asctime)s;%(levelname)s;%(message)s"')
 
-    m=my_sql()
-    con=m.get_link(astm_var.my_host,astm_var.my_user,astm_var.my_pass,astm_var.my_db)
-    cur=m.run_query(con,'select * from im_message where message_status=0',());
-    dt=m.get_single_row(cur);
-    while(dt):
-      print(dt)
-      xmpp = SendMsgBot(astm_var.xmpp_user, astm_var.xmpp_pass, dt[1], '{}'.format(dt[2]))
-      xmpp.register_plugin('xep_0030') # Service Discovery
-      xmpp.register_plugin('xep_0199') # XMPP Ping
-
-      # Connect to the XMPP server and start processing XMPP stanzas.
-      xmpp.connect()
-      xmpp.process(forever=False)
-
-      update_cur=m.run_query(con,'update im_message set message_status=1 where id=%s',(dt[0],))
+    while True:
+      m=my_sql()
+      con=m.get_link(astm_var.my_host,astm_var.my_user,astm_var.my_pass,astm_var.my_db)
+      cur=m.run_query(con,'select * from im_message where message_status=0',());
       dt=m.get_single_row(cur);
+      while(dt):
+        #print(dt)
+        xmpp = SendMsgBot(astm_var.xmpp_user, astm_var.xmpp_pass, dt[1], '{}'.format(dt[2]))
+        xmpp.register_plugin('xep_0030') # Service Discovery
+        xmpp.register_plugin('xep_0199') # XMPP Ping
 
+        # Connect to the XMPP server and start processing XMPP stanzas.
+        xmpp.connect()
+        xmpp.process(forever=False)
 
-    m.close_cursor(cur)
-    m.close_link(con)
+        update_cur=m.run_query(con,'update im_message set message_status=1 where id=%s',(dt[0],))
+        dt=m.get_single_row(cur);
+        m.close_cursor(update_cur)
+
+      m.close_cursor(cur)
+      m.close_link(con)
+      time.sleep(5)
