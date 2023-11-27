@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/root/xmpp/send_ca.py
+ExecStart=/root/xmpp/send_xmpp.py
 
 [Install]
 WantedBy=multi-user.target

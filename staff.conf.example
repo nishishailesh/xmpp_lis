@@ -1,10 +1,10 @@
 <?php
-$GLOBALS['main_user']='cluser';
-$GLOBALS['main_pass']='uronicacid';
-$GLOBALS['email_user']='root';
-$GLOBALS['email_pass']='xpw7w8linux';
+$GLOBALS['main_user']='xxxxx';
+$GLOBALS['main_pass']='xxxxx';
+$GLOBALS['email_user']='xxxxxroot';
+$GLOBALS['email_pass']='xxxxxxx';
 $GLOBALS['email_db_server']='11.207.1.2';
 $GLOBALS['ser']='BIOCHEMISTRY';
-$GLOBALS['_telegram_token_']='1691350169:AAGepYfuQP4jbjZDyOnhHA7bKVrBWZP2Uf4';
-$GLOBALS['_telegram_chatid_']='-1001338261960';
+$GLOBALS['_telegram_token_']='1xxxxx';
+$GLOBALS['_telegram_chatid_']='-xxxxxx';
 ?>

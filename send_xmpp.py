@@ -13,9 +13,9 @@ import slixmpp, time
 
 #For mysql password
 sys.path.append('/var/gmcs_config')
-import astm_var
+import astm_var_clg as astm_var
 
-send_to_examination_id=1006
+xmpp_examination_id=1006
 
 class SendMsgBot(slixmpp.ClientXMPP):
 
